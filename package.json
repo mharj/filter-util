@@ -1,0 +1,31 @@
+{
+  "name": "mharj-filter-util",
+  "version": "0.0.1",
+  "description": "Filter Utility",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mharj/filter-util.git"
+  },
+  "keywords": [
+    "filter",
+    "utility"
+  ],
+  "author": "mharj",
+  "license": "LGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/mharj/filter-util/issues"
+  },
+  "homepage": "https://github.com/mharj/filter-util#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "ts-node": "^8.0.2",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.17.0",
+    "typescript": "^3.2.4"
+  }
+}
