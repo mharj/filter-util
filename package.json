@@ -4,15 +4,22 @@
   "description": "Filter Utility",
   "main": "dist/index.js",
   "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
     "test": "mocha -r ts-node/register test/*.ts"
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mharj/filter-util.git"
   },
   "keywords": [
     "filter",
-    "utility"
+    "utility",
+    "typescript",
+    "javascript"
   ],
   "author": "mharj",
   "license": "LGPL-3.0-or-later",
