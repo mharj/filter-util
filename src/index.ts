@@ -6,11 +6,17 @@ export enum FilterTypes {
 	SET_NULL = 'SET_NULL',
 }
 export type FilterRequirementTypes<C> = {[P in keyof C]-?: FilterTypes};
-
-const doFilterRequirementKeys = <T>(object: object, keys: FilterRequirementTypes<any>) => {
+/**
+ * Conversion function
+ * @param object to filter
+ * @param filter object which describes what to do with values in object
+ * @return typed object based on interface
+ * @throws Error if FilterTypes.REQUIRED key is missing
+ */
+const doFilterRequirementKeys = <T>(object: object, filter: FilterRequirementTypes<any>) => {
 	const out = {};
-	Object.keys(keys).forEach((k) => {
-		const p = keys[k];
+	Object.keys(filter).forEach((k) => {
+		const p = filter[k];
 		if (p === FilterTypes.REQUIRED && !(k in object)) {
 			throw new Error(`missing required key ${k}`);
 		} else {
@@ -31,11 +37,31 @@ const doFilterRequirementKeys = <T>(object: object, keys: FilterRequirementTypes
 	return out as T;
 };
 
-export const filterObject = <T>(object: object, keys: FilterRequirementTypes<any>): T => {
-	return doFilterRequirementKeys<T>(object, keys);
+/**
+ * Filter object or objects
+ * @param object to filter
+ * @param filter object which describes what to do with values in object
+ * @return typed object or object array based on interface
+ */
+export const filterObject = <T extends object | object[]>(object: object | object[], filter: FilterRequirementTypes<any>): T => {
+	if (Array.isArray(object)) {
+		const outArray: any[] = [];
+		object.forEach((o) => {
+			outArray.push(filterObject(o, filter));
+		});
+		return outArray as T;
+	} else {
+		return doFilterRequirementKeys<T>(object, filter);
+	}
 };
 
-export const filterObjectArray = <T>(objects: object[], keys: FilterRequirementTypes<any>): T[] => {
+/**
+ * Filter objects
+ * @param object to filter
+ * @param filter object which describes what to do with values in object
+ * @return typed object array based on interface
+ */
+export const filterObjectArray = <T extends object>(objects: object[], keys: FilterRequirementTypes<any>): T[] => {
 	const outArray: T[] = [];
 	objects.forEach((object) => {
 		outArray.push(filterObject<T>(object, keys));

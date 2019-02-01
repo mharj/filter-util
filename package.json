@@ -4,7 +4,7 @@
   "description": "Filter Utility",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -r ts-node/register test/*.ts"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,9 @@
   },
   "homepage": "https://github.com/mharj/filter-util#readme",
   "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.12.21",
     "chai": "^4.2.0",
     "mocha": "^5.2.0",
     "ts-node": "^8.0.2",
