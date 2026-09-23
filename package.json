@@ -23,16 +23,9 @@
     "lint": "biome check",
     "validate": "tsc --noEmit"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "repository": "github:mharj/filter-util",
-  "keywords": [
-    "filter",
-    "utility",
-    "typescript",
-    "javascript"
-  ],
+  "keywords": ["filter", "utility", "typescript", "javascript"],
   "author": "mharj",
   "license": "LGPL-3.0-or-later",
   "bugs": {
