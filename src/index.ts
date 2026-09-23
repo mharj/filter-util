@@ -1,10 +1,13 @@
-export enum FilterTypes {
-	REQUIRED = 'REQUIRED',
-	OPTIONAL = 'OPTIONAL',
-	HIDDEN = 'HIDDEN',
-	SET_UNDEFINED = 'SET_UNDEFINED',
-	SET_NULL = 'SET_NULL',
-}
+export const FilterTypes = {
+	REQUIRED: 'REQUIRED',
+	OPTIONAL: 'OPTIONAL',
+	HIDDEN: 'HIDDEN',
+	SET_UNDEFINED: 'SET_UNDEFINED',
+	SET_NULL: 'SET_NULL',
+} as const;
+
+export type FilterTypes = (typeof FilterTypes)[keyof typeof FilterTypes];
+
 export type FilterRequirementTypes<C> = {[P in keyof C]-?: FilterTypes};
 /**
  * Conversion function
@@ -13,8 +16,8 @@ export type FilterRequirementTypes<C> = {[P in keyof C]-?: FilterTypes};
  * @return typed object based on interface
  * @throws Error if FilterTypes.REQUIRED key is missing
  */
-const doFilterRequirementKeys = <T>(object: object, filter: FilterRequirementTypes<any>) => {
-	const out = {};
+function doFilterRequirementKeys<T>(object: object, filter: FilterRequirementTypes<any>) {
+	const out: Record<string, any> = {};
 	Object.keys(filter).forEach((k) => {
 		const p = filter[k];
 		if (p === FilterTypes.REQUIRED && !(k in object)) {
@@ -29,13 +32,13 @@ const doFilterRequirementKeys = <T>(object: object, filter: FilterRequirementTyp
 						out[k] = undefined;
 						break;
 					default:
-						out[k] = object[k];
+						out[k] = (object as Record<string, any>)[k];
 				}
 			}
 		}
 	});
 	return out as T;
-};
+}
 
 /**
  * Filter object or objects
@@ -43,7 +46,7 @@ const doFilterRequirementKeys = <T>(object: object, filter: FilterRequirementTyp
  * @param filter object which describes what to do with values in object
  * @return typed object or object array based on interface
  */
-export const filterObject = <T extends object | object[]>(object: object | object[], filter: FilterRequirementTypes<any>): T => {
+export function filterObject<T extends object | object[]>(object: object | object[], filter: FilterRequirementTypes<any>): T {
 	if (Array.isArray(object)) {
 		const outArray: any[] = [];
 		object.forEach((o) => {
@@ -53,7 +56,7 @@ export const filterObject = <T extends object | object[]>(object: object | objec
 	} else {
 		return doFilterRequirementKeys<T>(object, filter);
 	}
-};
+}
 
 /**
  * Filter objects
@@ -61,10 +64,10 @@ export const filterObject = <T extends object | object[]>(object: object | objec
  * @param filter object which describes what to do with values in object
  * @return typed object array based on interface
  */
-export const filterObjectArray = <T extends object>(objects: object[], keys: FilterRequirementTypes<any>): T[] => {
+export function filterObjectArray<T extends object>(objects: object[], keys: FilterRequirementTypes<any>): T[] {
 	const outArray: T[] = [];
 	objects.forEach((object) => {
 		outArray.push(filterObject<T>(object, keys));
 	});
 	return outArray as T[];
-};
+}

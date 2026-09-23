@@ -1,6 +1,5 @@
-import {expect} from 'chai';
-import {describe, it} from 'mocha';
-import {filterObject, filterObjectArray, FilterRequirementTypes, FilterTypes} from '../src/index';
+import {describe, expect, it} from 'vitest';
+import {FilterRequirementTypes, FilterTypes, filterObject, filterObjectArray} from '../src/index';
 
 interface ITest {
 	param1: number;
@@ -26,7 +25,6 @@ const data3: object = {
 	param4: '4',
 	param5: 'should not exists',
 };
-
 
 const filter1: FilterRequirementTypes<ITest> = {
 	param1: FilterTypes.REQUIRED,
@@ -86,7 +84,6 @@ describe('filter', () => {
 			expect(filterObject<ITest[]>([data1], filter4)[0]).to.be.eql({param1: 1, param2: '2', param3: undefined, param4: '4'});
 			// param3 is null
 			expect(filterObject<ITest[]>([data1], filter5)[0]).to.be.eql({param1: 1, param2: '2', param3: null, param4: '4'});
-
 		});
 	});
 	describe('filterObjectArray', () => {
