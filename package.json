@@ -1,6 +1,6 @@
 {
   "name": "mharj-filter-util",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Filter Utility",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -23,9 +23,16 @@
     "lint": "biome check",
     "validate": "tsc --noEmit"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "repository": "github:mharj/filter-util",
-  "keywords": ["filter", "utility", "typescript", "javascript"],
+  "keywords": [
+    "filter",
+    "utility",
+    "typescript",
+    "javascript"
+  ],
   "author": "mharj",
   "license": "LGPL-3.0-or-later",
   "bugs": {
