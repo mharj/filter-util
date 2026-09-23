@@ -170,7 +170,7 @@ importers:
         specifier: ^2.5.14
         version: 2.5.14
       '@types/node':
-        specifier: ^24
+        specifier: ^24.13.6
         version: 24.13.6
       '@vitest/coverage-v8':
         specifier: ^5.0.1
